@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SubtitleFox - The smart fox that finds and translates subtitles</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo" onclick="showHome()" style="cursor: pointer;">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="SubtitleFox Logo" class="logo-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="logo-text">
+                    <h1 class="logo-title">
+                        <span class="logo-subtitle">Subtitle</span><span class="logo-fox">Fox</span>
+                    </h1>
+                    <p class="logo-tagline">The smart fox that finds and translates subtitles</p>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <a href="#" onclick="showHome()" class="nav-link active">Home</a>
+                <a href="#" onclick="showEnterprise()" class="nav-link">Enterprise</a>
+                <a href="#" onclick="showVideoToSRT()" class="nav-link">Video to SRT</a>
+                <a href="#" onclick="showUpload()" class="nav-link">Upload</a>
+                <a href="#" onclick="showAbout()" class="nav-link">About</a>
+                <a href="#" onclick="showRegister(); return false;" class="nav-link">Register</a>
+                <a href="#" onclick="showSignIn(); return false;" class="nav-link btn-signin">Sign In</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Home/Hero Section -->
+        <section id="home-section" class="hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-main-title">🌍 Subtitle Translation for Everyone & Enterprises</h1>
+                    <p class="hero-description">Unlock seamless subtitle translation and management for global audiences—fast, accurate, and scalable.</p>
+                    
+                    <div class="translation-box">
+                        <div class="language-selector">
+                            <label>Select Language</label>
+                            <select id="translate-from" class="lang-select">
+                                <option value="">From Language</option>
+                                <option value="English">English</option>
+                                <option value="Spanish">Spanish</option>
+                                <option value="French">French</option>
+                                <option value="German">German</option>
+                                <option value="Italian">Italian</option>
+                                <option value="Portuguese">Portuguese</option>
+                                <option value="Russian">Russian</option>
+                                <option value="Chinese">Chinese</option>
+                                <option value="Japanese">Japanese</option>
+                                <option value="Korean">Korean</option>
+                            </select>
+                            <i class="fas fa-exchange-alt"></i>
+                            <select id="translate-to" class="lang-select">
+                                <option value="">To Language</option>
+                                <option value="English">English</option>
+                                <option value="Spanish">Spanish</option>
+                                <option value="French">French</option>
+                                <option value="German">German</option>
+                                <option value="Italian">Italian</option>
+                                <option value="Portuguese">Portuguese</option>
+                                <option value="Russian">Russian</option>
+                                <option value="Chinese">Chinese</option>
+                                <option value="Japanese">Japanese</option>
+                                <option value="Korean">Korean</option>
+                            </select>
+                        </div>
+                        <p class="powered-by">Powered by advanced translation engines</p>
+                    </div>
+
+                    <!-- Search Box -->
+                    <div class="search-box-hero">
+                        <div class="search-input-group">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="search-input" placeholder="Search for movies, TV shows..." autocomplete="off">
+                            <select id="language-filter">
+                                <option value="">All Languages</option>
+                                <option value="English">English</option>
+                                <option value="Spanish">Spanish</option>
+                                <option value="French">French</option>
+                                <option value="German">German</option>
+                                <option value="Italian">Italian</option>
+                                <option value="Portuguese">Portuguese</option>
+                                <option value="Russian">Russian</option>
+                                <option value="Chinese">Chinese</option>
+                                <option value="Japanese">Japanese</option>
+                                <option value="Korean">Korean</option>
+                                <option value="Arabic">Arabic</option>
+                                <option value="Hindi">Hindi</option>
+                            </select>
+                            <button onclick="performSearch()" class="btn-search">
+                                <i class="fas fa-search"></i> Search
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="results-container" class="results-container">
+                        <div class="empty-state">
+                            <i class="fas fa-search"></i>
+                            <p>Enter a search term to find subtitles</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why SubtitleFox Section -->
+        <section id="why-section" class="features-section">
+            <div class="container">
+                <h2 class="section-title">⭐ Why SubtitleFox?</h2>
+                <p class="section-description">SubtitleFox helps creators, educators, and enterprises break language barriers with automated subtitle solutions. From single files to large-scale media libraries, SubtitleFox delivers speed, accuracy, and reliability.</p>
+                
+                <div class="use-cases">
+                    <h3>Perfect for:</h3>
+                    <div class="use-case-grid">
+                        <div class="use-case-card">
+                            <span class="use-case-icon">🎬</span>
+                            <h4>Media & Entertainment</h4>
+                        </div>
+                        <div class="use-case-card">
+                            <span class="use-case-icon">🎓</span>
+                            <h4>Education & E-Learning</h4>
+                        </div>
+                        <div class="use-case-card">
+                            <span class="use-case-icon">🏢</span>
+                            <h4>Corporate & Enterprise Content</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Enterprise Section -->
+        <section id="enterprise-section" class="enterprise-section" style="display: none;">
+            <div class="container">
+                <h2 class="section-title">🏢 SubtitleFox for Enterprise</h2>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-layer-group"></i>
+                        <h3>Bulk Subtitle Processing</h3>
+                        <p>Upload and translate hundreds of subtitle files at once—built for large content libraries.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-code"></i>
+                        <h3>API Integration</h3>
+                        <p>Seamlessly integrate SubtitleFox into your existing workflow using our powerful API.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-language"></i>
+                        <h3>Advanced Language Support</h3>
+                        <p>Accurate translations even for technical, legal, and industry-specific terminology.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-broadcast-tower"></i>
+                        <h3>Live Subtitle Translation</h3>
+                        <p>Generate real-time subtitles for live streams, webinars, and events.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-video"></i>
+                        <h3>Subtitles from Video</h3>
+                        <p>Automatically extract subtitles from video files and translate them instantly.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-rocket"></i>
+                        <h3>Priority Processing</h3>
+                        <p>Enterprise users get faster processing and dedicated resources.</p>
+                    </div>
+                </div>
+
+                <div class="enterprise-solutions">
+                    <h3>Tailored Enterprise Solutions</h3>
+                    <p>Custom models, compliance-ready workflows, and secure environments designed for your business needs.</p>
+                </div>
+
+                <div class="partner-section">
+                    <h3>🤝 Partner With SubtitleFox</h3>
+                    <p>Interested in partnerships, enterprise plans, advertising, or custom solutions?</p>
+                    <p>Contact us to explore collaboration opportunities.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video to SRT Section -->
+        <section id="video-srt-section" class="main-section" style="display: none;">
+            <div class="container">
+                <h2 class="section-title">Video to SRT</h2>
+                <p class="section-description">Extract subtitles from video files and convert them to SRT format using advanced speech recognition.</p>
+                
+                <form id="video-to-srt-form" class="video-upload-form">
+                    <div class="form-group">
+                        <label for="video-language">Video Language</label>
+                        <select id="video-language" class="lang-select-dark">
+                            <option value="af-ZA">Afrikaans</option>
+                            <option value="sq-AL">Albanian</option>
+                            <option value="ar-EG">Arabic (Egypt)</option>
+                            <option value="ar-SA">Arabic (Saudi Arabia)</option>
+                            <option value="hy-AM">Armenian</option>
+                            <option value="az-AZ">Azerbaijani</option>
+                            <option value="eu-ES">Basque</option>
+                            <option value="be-BY">Belarusian</option>
+                            <option value="bn-BD">Bengali</option>
+                            <option value="bs-BA">Bosnian</option>
+                            <option value="bg-BG">Bulgarian</option>
+                            <option value="ca-ES">Catalan</option>
+                            <option value="zh-CN">Chinese (Simplified)</option>
+                            <option value="zh-TW">Chinese (Traditional)</option>
+                            <option value="hr-HR">Croatian</option>
+                            <option value="cs-CZ">Czech</option>
+                            <option value="da-DK">Danish</option>
+                            <option value="nl-NL">Dutch</option>
+                            <option value="en-AU">English (Australia)</option>
+                            <option value="en-CA">English (Canada)</option>
+                            <option value="en-GB">English (UK)</option>
+                            <option value="en-US">English (US)</option>
+                            <option value="et-EE">Estonian</option>
+                            <option value="fa-IR">Persian</option>
+                            <option value="fil-PH">Filipino</option>
+                            <option value="fi-FI">Finnish</option>
+                            <option value="fr-CA">French (Canada)</option>
+                            <option value="fr-FR">French (France)</option>
+                            <option value="gl-ES">Galician</option>
+                            <option value="ka-GE">Georgian</option>
+                            <option value="de-DE">German</option>
+                            <option value="el-GR">Greek</option>
+                            <option value="gu-IN">Gujarati</option>
+                            <option value="he-IL">Hebrew</option>
+                            <option value="hi-IN">Hindi</option>
+                            <option value="hu-HU">Hungarian</option>
+                            <option value="is-IS">Icelandic</option>
+                            <option value="id-ID">Indonesian</option>
+                            <option value="ga-IE">Irish</option>
+                            <option value="it-IT">Italian</option>
+                            <option value="ja-JP">Japanese</option>
+                            <option value="kn-IN">Kannada</option>
+                            <option value="ko-KR">Korean</option>
+                            <option value="lv-LV">Latvian</option>
+                            <option value="lt-LT">Lithuanian</option>
+                            <option value="mk-MK">Macedonian</option>
+                            <option value="ms-MY">Malay</option>
+                            <option value="ml-IN">Malayalam</option>
+                            <option value="mt-MT">Maltese</option>
+                            <option value="mr-IN">Marathi</option>
+                            <option value="mn-MN">Mongolian</option>
+                            <option value="ne-NP">Nepali</option>
+                            <option value="no-NO">Norwegian</option>
+                            <option value="pa-IN">Punjabi</option>
+                            <option value="pl-PL">Polish</option>
+                            <option value="pt-BR">Portuguese (Brazil)</option>
+                            <option value="pt-PT">Portuguese (Portugal)</option>
+                            <option value="ro-RO">Romanian</option>
+                            <option value="ru-RU">Russian</option>
+                            <option value="sr-RS">Serbian</option>
+                            <option value="si-LK">Sinhala</option>
+                            <option value="sk-SK">Slovak</option>
+                            <option value="sl-SI">Slovenian</option>
+                            <option value="es-AR">Spanish (Argentina)</option>
+                            <option value="es-MX">Spanish (Mexico)</option>
+                            <option value="es-ES">Spanish (Spain)</option>
+                            <option value="sw-KE">Swahili</option>
+                            <option value="sv-SE">Swedish</option>
+                            <option value="ta-IN">Tamil</option>
+                            <option value="te-IN">Telugu</option>
+                            <option value="th-TH">Thai</option>
+                            <option value="tr-TR">Turkish</option>
+                            <option value="uk-UA">Ukrainian</option>
+                            <option value="ur-PK">Urdu</option>
+                            <option value="vi-VN">Vietnamese</option>
+                        </select>
+                    </div>
+                    
+                    <div class="upload-area">
+                        <i class="fas fa-video"></i>
+                        <p>Upload your video file to extract subtitles</p>
+                        <p class="upload-hint">Supported formats: MP4, AVI, MOV, MKV, WMV, FLV, WEBM, M4V</p>
+                        <input type="file" accept="video/*" id="video-upload" required>
+                        <label for="video-upload" class="file-label-video">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span>Choose Video File</span>
+                        </label>
+                        <span id="video-file-name" class="file-name"></span>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary" id="process-video-btn">
+                        <i class="fas fa-magic"></i> Convert Video to SRT
+                    </button>
+                </form>
+                
+                <div id="video-processing-status" class="processing-status"></div>
+            </div>
+        </section>
+
+        <!-- Upload Section -->
+        <section id="upload-section" class="main-section" style="display: none;">
+            <div class="container">
+                <h2 class="section-title">Upload Subtitles</h2>
+                <form id="upload-form" class="upload-form">
+                    <div class="form-group">
+                        <label for="upload-title">Title *</label>
+                        <input type="text" id="upload-title" placeholder="Movie or TV Show name" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="upload-language">Language *</label>
+                            <input type="text" id="upload-language" placeholder="English" value="English" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="upload-year">Year</label>
+                            <input type="number" id="upload-year" placeholder="2024" min="1900" max="2100">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="upload-season">Season (for TV shows)</label>
+                            <input type="number" id="upload-season" placeholder="1" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="upload-episode">Episode (for TV shows)</label>
+                            <input type="number" id="upload-episode" placeholder="1" min="1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="upload-file">Subtitle File *</label>
+                        <div class="file-upload">
+                            <input type="file" id="upload-file" accept=".srt,.vtt,.ass,.ssa,.sub" required>
+                            <label for="upload-file" class="file-label">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Choose file (.srt, .vtt, .ass, .ssa, .sub)</span>
+                            </label>
+                            <span id="file-name" class="file-name"></span>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-upload"></i> Upload Subtitle
+                    </button>
+                </form>
+                <div id="upload-message" class="message"></div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about-section" class="main-section" style="display: none;">
+            <div class="container">
+                <h2 class="section-title">About SubtitleFox</h2>
+                <p class="section-description">SubtitleFox is a comprehensive subtitle management and translation platform designed to help creators, educators, and enterprises break language barriers.</p>
+                <div class="about-content">
+                    <h3>Our Mission</h3>
+                    <p>To make subtitles accessible to everyone, everywhere, breaking down language barriers and making content truly global.</p>
+                    
+                    <h3>What We Offer</h3>
+                    <ul>
+                        <li>Fast and accurate subtitle search</li>
+                        <li>Multi-language subtitle translation</li>
+                        <li>Video to SRT conversion</li>
+                        <li>Enterprise solutions for large-scale content</li>
+                        <li>API integration for developers</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Register Section -->
+        <section id="register-section" class="main-section" style="display: none;">
+            <div class="container">
+                <h2 class="section-title">Create an Account</h2>
+                <p class="section-description">Join SubtitleFox to access advanced features and manage your subtitles.</p>
+                <form class="auth-form">
+                    <div class="form-group">
+                        <label for="reg-email">Email *</label>
+                        <input type="email" id="reg-email" placeholder="your.email@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-username">Username *</label>
+                        <input type="text" id="reg-username" placeholder="Choose a username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-password">Password *</label>
+                        <input type="password" id="reg-password" placeholder="Create a strong password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-confirm-password">Confirm Password *</label>
+                        <input type="password" id="reg-confirm-password" placeholder="Confirm your password" required>
+                    </div>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </button>
+                    <p class="auth-switch">
+                        Already have an account? <a href="#" onclick="showSignIn(); return false;">Sign In</a>
+                    </p>
+                </form>
+            </div>
+        </section>
+
+        <!-- Sign In Section -->
+        <section id="signin-section" class="main-section" style="display: none;">
+            <div class="container">
+                <h2 class="section-title">Sign In</h2>
+                <p class="section-description">Welcome back! Sign in to your SubtitleFox account.</p>
+                <form class="auth-form">
+                    <div class="form-group">
+                        <label for="signin-email">Email or Username *</label>
+                        <input type="text" id="signin-email" placeholder="your.email@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signin-password">Password *</label>
+                        <input type="password" id="signin-password" placeholder="Enter your password" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="remember-me">
+                            <span>Remember me</span>
+                        </label>
+                        <a href="#" class="forgot-password">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-sign-in-alt"></i> Sign In
+                    </button>
+                    <p class="auth-switch">
+                        Don't have an account? <a href="#" onclick="showRegister(); return false;">Register</a>
+                    </p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>SubtitleFox</h3>
+                    <p>The smart fox that finds and translates subtitles</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="#" onclick="showHome()">All Uploads</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">DMCA</a>
+                    <a href="#">Report Content</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Enterprise</h4>
+                    <a href="#" onclick="showEnterprise()">Enterprise Solutions</a>
+                    <a href="#">API Documentation</a>
+                    <a href="#">Contact Sales</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 subtitlefox.com - All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

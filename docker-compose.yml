@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+      - SECRET_KEY=${SECRET_KEY:-change-this-secret-key}
+      - DATABASE_URL=${DATABASE_URL:-sqlite:///subtitles.db}
+    volumes:
+      - ./uploads:/app/uploads
+      - ./video_uploads:/app/video_uploads
+      - ./subtitles.db:/app/subtitles.db
+    restart: unless-stopped
+
+  # Optional: PostgreSQL database
+  # db:
+  #   image: postgres:15
+  #   environment:
+  #     - POSTGRES_DB=subtitlefox
+  #     - POSTGRES_USER=subtitlefox
+  #     - POSTGRES_PASSWORD=${DB_PASSWORD:-change-this-password}
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   restart: unless-stopped
+
+# volumes:
+#   postgres_data:
+
