@@ -23,9 +23,10 @@ app.config['UPLOAD_FOLDER'] = os.getenv('UPLOAD_FOLDER', 'uploads')
 app.config['VIDEO_UPLOAD_FOLDER'] = os.getenv('VIDEO_UPLOAD_FOLDER', 'video_uploads')
 app.config['MAX_CONTENT_LENGTH'] = int(os.getenv('MAX_CONTENT_LENGTH', 500 * 1024 * 1024))  # 500MB default
 
-# Ensure upload folders exist
-os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
-os.makedirs(app.config['VIDEO_UPLOAD_FOLDER'], exist_ok=True)
+# Ensure upload folders exist (skip on Vercel serverless)
+if not os.environ.get('VERCEL'):
+    os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+    os.makedirs(app.config['VIDEO_UPLOAD_FOLDER'], exist_ok=True)
 
 db = SQLAlchemy(app)
 
